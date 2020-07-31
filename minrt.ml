@@ -1453,4 +1453,4 @@ let rec rt (size_x : int) (size_y : int) (debug_p : bool) : unit =
   let _ = read_parameter () in
   scan_start ()
 in
-rt 768 768 false
+rt 1024 1024 false
