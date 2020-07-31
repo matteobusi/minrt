@@ -974,15 +974,8 @@ in
 
 
 let rec write_rgb (_ : unit) : unit =
-  let red = int_of_float rgb.(0) in
-  let red = if not (red <= 255) then 255 else red in
-  let _ = print_byte red in
-  let green = int_of_float rgb.(1) in
-  let green = if not (green <= 255) then 255 else green in
-  let _ = print_byte green in
-  let blue = int_of_float rgb.(2) in
-  let blue = if not (blue <= 255) then 255 else blue in
-  print_byte blue
+  let rec cc (v : int) : int = (if v <= 255 then v else 255) in
+    print_byte (cc (int_of_float rgb.(0))); print_byte (cc (int_of_float rgb.(1))); print_byte (cc (int_of_float rgb.(2)))
 in
 
 
