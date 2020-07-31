@@ -1,3 +1,14 @@
+(****************************************************************)
+(*                                                              *)
+(* Ray Tracing Program for (Mini) Objective Caml                *)
+(*                                                              *)
+(* Original Program by Ryoji Kawamichi                          *)
+(* Arranged for Chez Scheme by Motohico Nanano                  *)
+(* Arranged for Objective Caml by Y. Oiwa and E. Sumii          *)
+(*                                                              *)
+(****************************************************************)
+
+(* Originally from globals.ml *)
 let objects =
   let dummy = Array.make 0 0.000000 in
   Array.make 60 (0, 0, 0, 0, dummy, dummy, false, dummy, dummy, dummy)
