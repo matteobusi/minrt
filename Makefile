@@ -16,7 +16,7 @@ imc-rt: imc
 
 imc-rt-last: imc
 	# Recover the previous version of the file
-	git show HEAD~1:minrt.ml > $(TMPDIR)/$(TARGET).old.ml
+	git show HEAD~2:minrt.ml > $(TMPDIR)/$(TARGET).old.ml
 
 	# Now compare the two versions
 	$(BINDIR)/imc $(TARGET).ml $(TMPDIR)/$(TARGET).old.ml
