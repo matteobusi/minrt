@@ -37,7 +37,7 @@ let cos_v = Array.make 2 0.0 in
 let sin_v = Array.make 2 0.0 in
 
 
-let beam = Array.make 1 255.000000 in
+let beam = Array.make 1 255.0 in
 
 
 let and_net = Array.make 50 (Array.make 1 (-1)) in
@@ -114,7 +114,7 @@ let rec xor (x : bool) (y : bool) : bool = if x then not y else y in
 let rec fsqr (x : float) : float = x *. x in
 
 
-let rec fhalf (x : float) : float = x /. 2.000000 in
+let rec fhalf (x : float) : float = x /. 2.0 in
 
 
 let rec o_texturetype (m : (int * int * int * int * float array * float array * bool * float array * float array * float array)) : int =
@@ -241,7 +241,7 @@ in
 
 
 let rec sgn (x : float) : float =
-  if not (x <= 0.0) then 1.000000 else -1.000000
+  if not (x <= 0.0) then 1.0 else -1.0
 in
 
 
@@ -393,20 +393,20 @@ let rec read_nth_object (n : int) : bool =
         in
         let _ =
           rotation.(0) <-
-            2.000000
+            2.0
             *. ( (ao *. cs_temp.(1) *. cs_temp.(2))
                +. (bo *. cs_temp.(4) *. cs_temp.(5))
                +. (co *. cs_temp.(7) *. cs_temp.(8)) )
         in
         let _ =
           rotation.(1) <-
-            2.000000
+            2.0
             *. ( (ao *. cs_temp.(0) *. cs_temp.(2))
                +. (bo *. cs_temp.(3) *. cs_temp.(5))
                +. (co *. cs_temp.(6) *. cs_temp.(8)) )
         in
         rotation.(2) <-
-          2.000000
+          2.0
           *. ( (ao *. cs_temp.(0) *. cs_temp.(1))
              +. (bo *. cs_temp.(3) *. cs_temp.(4))
              +. (co *. cs_temp.(6) *. cs_temp.(7)) )
@@ -574,22 +574,22 @@ let rec solver_second (m : (int * int * int * int * float array * float array * 
   let aa = if not (o_isrot m = 0) then aa0 +. in_prod_co_objrot m l else aa0 in
   if 0.0 = aa then 0
   else
-    let bb0 = 2.000000 *. solver2nd_mul_b m l in
+    let bb0 = 2.0 *. solver2nd_mul_b m l in
     let bb = if not (o_isrot m = 0) then bb0 +. solver2nd_rot_b m l else bb0 in
     let cc0 = in_prod_sqr_obj m solver_w_vec in
     let cc1 =
       if not (o_isrot m = 0) then cc0 +. in_prod_co_objrot m solver_w_vec
       else cc0
     in
-    let cc = if o_form m = 3 then cc1 -. 1.000000 else cc1 in
+    let cc = if o_form m = 3 then cc1 -. 1.0 else cc1 in
     let d =
-      let d2 = 4.000000 *. aa *. cc in
+      let d2 = 4.0 *. aa *. cc in
       fsqr bb -. d2
     in
     if not (d <= 0.0) then
       let sd = sqrt d in
       let t1 = if o_isinvert m then sd else -.sd in
-      let _ = solver_dist.(0) <- (t1 -. bb) /. 2.000000 /. aa in
+      let _ = solver_dist.(0) <- (t1 -. bb) /. 2.0 /. aa in
       1
     else 0
 in
@@ -632,7 +632,7 @@ in
 
 let rec is_second_outside (m : (int * int * int * int * float array * float array * bool * float array * float array * float array)) : bool =
   let w = in_prod_sqr_obj m isoutside_q in
-  let w2 = if o_form m = 3 then w -. 1.000000 else w in
+  let w2 = if o_form m = 3 then w -. 1.0 else w in
   let w3 =
     if not (o_isrot m = 0) then w2 +. in_prod_co_objrot m isoutside_q else w2
   in
@@ -865,27 +865,27 @@ let rec utexture (m : (int * int * int * int * float array * float array * bool 
       if not (10.0 <= w3 -. d2) then true else false
     in
     texture_color.(1) <-
-      ( if flag1 then if flag2 then 255.000000 else 0.0
+      ( if flag1 then if flag2 then 255.0 else 0.0
       else if flag2 then 0.0
-      else 255.000000 )
+      else 255.0 )
   else if m_tex = 2 then
     let w2 = fsqr (sin (p.(1) *. 0.250000)) in
-    let _ = texture_color.(0) <- 255.000000 *. w2 in
-    texture_color.(1) <- 255.000000 *. (1.000000 -. w2)
+    let _ = texture_color.(0) <- 255.0 *. w2 in
+    texture_color.(1) <- 255.0 *. (1.0 -. w2)
   else if m_tex = 3 then
     let w1 = p.(0) -. o_param_x m in
     let w3 = p.(2) -. o_param_z m in
     let w2 = sqrt (fsqr w1 +. fsqr w3) /. 10.0 in
     let w4 = (w2 -. floor w2) *. 3.141593 in
     let cws = fsqr (cos w4) in
-    let _ = texture_color.(1) <- cws *. 255.000000 in
-    texture_color.(2) <- (1.000000 -. cws) *. 255.000000
+    let _ = texture_color.(1) <- cws *. 255.0 in
+    texture_color.(2) <- (1.0 -. cws) *. 255.0
   else if m_tex = 4 then
     let w1 = (p.(0) -. o_param_x m) *. sqrt (o_param_a m) in
     let w3 = (p.(2) -. o_param_z m) *. sqrt (o_param_c m) in
     let w4 = sqrt (fsqr w1 +. fsqr w3) in
     let w7 =
-      if not (0.000100 <= abs_float w1) then 15.000000
+      if not (0.000100 <= abs_float w1) then 15.0
       else
         let w5 = abs_float (w3 /. w1) in
         atan w5 *. (30.0 /. 3.141593)
@@ -893,7 +893,7 @@ let rec utexture (m : (int * int * int * int * float array * float array * bool 
     let w9 = w7 -. floor w7 in
     let w2 = (p.(1) -. o_param_y m) *. sqrt (o_param_b m) in
     let w8 =
-      if not (0.000100 <= abs_float w7) then 15.000000
+      if not (0.000100 <= abs_float w7) then 15.0
       else
         let w6 = abs_float (w2 /. w4) in
         atan w6 *. (30.0 /. 3.141593)
@@ -901,7 +901,7 @@ let rec utexture (m : (int * int * int * int * float array * float array * bool 
     let w10 = w8 -. floor w8 in
     let w11 = 0.150000 -. fsqr (0.500000 -. w9) -. fsqr (0.500000 -. w10) in
     texture_color.(2) <-
-      (if w11 <= 0.0 then 0.0 else w11 *. (255.000000 /. 0.300000))
+      (if w11 <= 0.0 then 0.0 else w11 *. (255.0 /. 0.300000))
   else ()
 in
 
@@ -948,7 +948,7 @@ let rec raytracing (nref : int) (energy : float) : unit =
     let _ = accumulate_vec_mul rgb texture_color bright in
     if not (nref <= 4) then ()
     else if not (energy <= 0.100000) then
-      let w = -2.000000 *. in_prod vscan nvector in
+      let w = -2.0 *. in_prod vscan nvector in
       let _ = accumulate_vec_mul vscan nvector w in
       let m_surface = o_reflectiontype cobj in
       if m_surface = 1 then
@@ -965,7 +965,7 @@ let rec raytracing (nref : int) (energy : float) : unit =
         let _ = viewpoint.(0) <- crashed_point.(0) in
         let _ = viewpoint.(1) <- crashed_point.(1) in
         let _ = viewpoint.(2) <- crashed_point.(2) in
-        let energy2 = energy *. (1.000000 -. o_diffuse cobj) in
+        let energy2 = energy *. (1.0 -. o_diffuse cobj) in
         raytracing (nref + 1) energy2
       else ()
     else ()
@@ -1016,7 +1016,7 @@ let rec scan_point (scanx : int) : unit =
         rgb.(0) <- 0.0;
         rgb.(1) <- 0.0;
         rgb.(2) <- 0.0;
-        raytracing 0 1.000000;
+        raytracing 0 1.0;
         write_rgb ();
         scan_point (scanx + 1)))
 in
@@ -1024,7 +1024,7 @@ in
 
 let rec scan_line (scany : int) : unit =
   if not (size.(0) <= scany) then
-    (scan_sscany.(0) <- (let t = scan_offset.(0) -. 1.000000 -. float_of_int scany in scan_d.(0) *. t);
+    (scan_sscany.(0) <- (let t = scan_offset.(0) -. 1.0 -. float_of_int scany in scan_d.(0) *. t);
     scan_met1.(0) <- fsqr scan_sscany.(0) +. 40000.0;
     let t1 = scan_sscany.(0) *. sin_v.(0) in
       wscan.(0) <- (t1 *. sin_v.(1)) -. vp.(0);
@@ -1038,8 +1038,8 @@ in
 let rec scan_start (_ : unit) : unit =
   write_ppm_header ();
   let sizex = float_of_int size.(0) in
-    scan_d.(0) <- 128.000000 /. sizex;
-    scan_offset.(0) <- sizex /. 2.000000;
+    scan_d.(0) <- 128.0 /. sizex;
+    scan_offset.(0) <- sizex /. 2.0;
     scan_line 0
 in
 
